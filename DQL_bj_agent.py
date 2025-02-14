@@ -9,12 +9,12 @@ from collections import deque
 
 # Hyperparameters
 GAMMA = 0.99  # Discount factor
-ALPHA = 0.001  # Learning rate
+ALPHA = 0.00025  # Learning rate
 EPSILON = 1.0  # Exploration rate
-EPSILON_DECAY = 0.99995  # Decay factor for epsilon
-EPSILON_MIN = 0.05  # Minimum epsilon value
+EPSILON_MIN = 0.1  # Minimum epsilon value
+EPSILON_DECAY = (EPSILON-EPSILON_MIN)/1000000  # Decay factor for epsilon
 BATCH_SIZE = 32  # Batch size for experience replay
-MEMORY_SIZE = 1000  # Experience replay memory size
+MEMORY_SIZE = 100  # Experience replay memory size
 EPISODES = 10000  # Number of training episodes
 
 # Create the Blackjack environment
