@@ -127,27 +127,27 @@ def train_dqn():
 # Train the agent
 trained_policy = train_dqn()
 
-def play_blackjack(trained_policy, num_games=20):
-    env = gym.make('Blackjack-v1', render_mode='human')
+def play_blackjack(trained_policy, num_games=10):
+    env = gym.make('Blackjack-v1')
     scores = []
+    total_score = 0
     for game in range(num_games):
         state, _ = env.reset()
         done = False
-        total_score = 0
         while not done:
             with torch.no_grad():
                 action = torch.argmax(trained_policy(preprocess_state(state))).item()
             state, reward, done, _, _ = env.step(action)
             total_score += reward
         scores.append(total_score)
-        print(f"Game: {game+1}: Total score: {sum(total_score)} Reward: {reward}")
+        print(f"Game {game+1}: Total Score: {total_score} Reward: {reward}")
     env.close()
     
     # Plot game scores
     plt.plot(scores)
     plt.xlabel("Games")
-    plt.ylabel("Score")
-    plt.title("Blackjack Game Scores")
+    plt.ylabel("Total Score (Player)")
+    plt.title("Blackjack Game Total Scores")
     plt.show()
 
 play_blackjack(trained_policy, num_games=20)
