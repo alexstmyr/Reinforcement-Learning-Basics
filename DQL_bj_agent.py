@@ -127,7 +127,7 @@ def train_dqn():
 # Train the agent
 trained_policy = train_dqn()
 
-def play_blackjack(trained_policy, num_games=10):
+def play_blackjack(trained_policy, num_games=20):
     env = gym.make('Blackjack-v1', render_mode='human')
     scores = []
     for game in range(num_games):
@@ -140,7 +140,7 @@ def play_blackjack(trained_policy, num_games=10):
             state, reward, done, _, _ = env.step(action)
             total_score += reward
         scores.append(total_score)
-        print(f"Game {game+1}: Reward {total_score}")
+        print(f"Game: {game+1}: Total score: {sum(total_score)} Reward: {reward}")
     env.close()
     
     # Plot game scores
@@ -150,4 +150,4 @@ def play_blackjack(trained_policy, num_games=10):
     plt.title("Blackjack Game Scores")
     plt.show()
 
-play_blackjack(trained_policy, num_games=10)
+play_blackjack(trained_policy, num_games=20)
