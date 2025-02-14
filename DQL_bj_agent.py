@@ -141,6 +141,7 @@ def play_blackjack(trained_policy, num_games=10):
             total_score += reward
         scores.append(total_score)
         print(f"Game {game+1}: Total Score: {total_score} Reward: {reward}")
+        print(f'Agent winning rate: {1-(np.abs(total_score)/num_games)}')
     env.close()
     
     # Plot game scores
@@ -150,4 +151,4 @@ def play_blackjack(trained_policy, num_games=10):
     plt.title("Blackjack Game Total Scores")
     plt.show()
 
-play_blackjack(trained_policy, num_games=20)
+play_blackjack(trained_policy, num_games=100)
