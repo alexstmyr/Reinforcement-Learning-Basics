@@ -30,13 +30,13 @@ DRL is a powerful technique that combines Reinforcement Learning (RL) with Deep 
     $$
 
     Where:
-    $
+    
     *   \(Q(s, a)\) is the Q-value for taking action \(a\) in state \(s\)
     *   \(R(s, a)\) is the reward received for taking action \(a\) in state \(s\)
     *   \(\gamma\) is the discount factor
     *   \(s'\) is the next state
     *   \(a'\) is the next action
-    $
+    
 
 ## Code Explanation
 
