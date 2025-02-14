@@ -14,8 +14,8 @@ EPSILON = 1.0  # Exploration rate
 EPSILON_DECAY = 0.99995  # Decay factor for epsilon
 EPSILON_MIN = 0.05  # Minimum epsilon value
 BATCH_SIZE = 32  # Batch size for experience replay
-MEMORY_SIZE = 10000  # Experience replay memory size
-EPISODES = 100000  # Number of training episodes
+MEMORY_SIZE = 1000  # Experience replay memory size
+EPISODES = 10000  # Number of training episodes
 
 # Create the Blackjack environment
 env = gym.make('Blackjack-v1')
@@ -109,13 +109,19 @@ def train_dqn():
         if episode % 5000 == 0:
             print(f"Episode {episode}/{EPISODES}, Avg Reward: {np.mean(rewards_per_episode[-500:])}, Epsilon: {EPSILON:.4f}")
     
+    # Smooth reward tracking for better visualization
+    def moving_average(data, window_size=100):
+        return np.convolve(data, np.ones(window_size)/window_size, mode='valid')
+
     # Plot results
-    plt.plot(rewards_per_episode)
+    plt.figure(figsize=(10, 5))
+    plt.plot(moving_average(rewards_per_episode, window_size=500), label="Smoothed Reward", color="blue")
     plt.xlabel("Episodes")
-    plt.ylabel("Total Reward")
+    plt.ylabel("Total Reward (Smoothed)")
     plt.title("DQL Agent Training Performance")
+    plt.legend()
     plt.show()
-    
+
     return policy_net
 
 # Train the agent
@@ -133,5 +139,4 @@ def play_blackjack(trained_policy, num_games=10):
         print(f"Game {game+1}: Reward {reward}")
     env.close()
 
-# Uncomment below to test the trained agent
-# play_blackjack(trained_policy, num_games=5)
+play_blackjack(trained_policy, num_games=5)
